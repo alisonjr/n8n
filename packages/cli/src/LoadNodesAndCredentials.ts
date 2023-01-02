@@ -70,6 +70,10 @@ export class LoadNodesAndCredentialsClass implements INodesAndCredentials {
 		for (const credential of this.types.credentials) {
 			if (credential.name in credentialsOverwrites) {
 				credential.__overwrittenProperties = Object.keys(credentialsOverwrites[credential.name]);
+			} else if (credential?.extends?.[0] && credential?.extends?.[0] in credentialsOverwrites) {
+				credential.__overwrittenProperties = Object.keys(
+					credentialsOverwrites[credential?.extends?.[0]],
+				);
 			}
 		}
 

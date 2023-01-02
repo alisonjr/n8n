@@ -22,6 +22,22 @@ class CredentialTypesClass implements ICredentialTypes {
 		return this.knownCredentials[type]?.nodesToTestWith ?? [];
 	}
 
+	/**
+	 * Returns all parent types of the given credential type
+	 */
+	getParentTypes(typeName: string): string[] {
+		const credentialType = this.getByName(typeName);
+		if (credentialType?.extends === undefined) return [];
+
+		const types: string[] = [];
+		credentialType.extends.forEach((type: string) => {
+			types.push(type);
+			types.push(...this.getParentTypes(type));
+		});
+
+		return types;
+	}
+
 	private getCredential(type: string): LoadedClass<ICredentialType> {
 		const loadedCredentials = this.loadedCredentials;
 		if (type in loadedCredentials) {

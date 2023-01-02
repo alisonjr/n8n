@@ -330,6 +330,7 @@ export interface ICredentialTypes {
 	recognizes(credentialType: string): boolean;
 	getByName(credentialType: string): ICredentialType;
 	getNodeTypesToTestWith(type: string): string[];
+	getParentTypes(typeName: string): string[];
 }
 
 // The way the credentials get saved in the database (data encrypted)
